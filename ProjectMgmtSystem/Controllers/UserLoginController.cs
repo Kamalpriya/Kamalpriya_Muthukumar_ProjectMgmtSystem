@@ -7,7 +7,7 @@ using ProjectMgmtSystem.Models;
 
 namespace ProjectMgmtSystem.Controllers
 {
-    // 4. User Login Controller with CRUD api and action method
+    // 4. User Login Controller with CRUD api and action method (Sprint I)
     public class UserLoginController : Controller
     {
         public IActionResult Index()

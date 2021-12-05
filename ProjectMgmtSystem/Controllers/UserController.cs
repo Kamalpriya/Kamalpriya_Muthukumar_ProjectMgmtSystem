@@ -7,7 +7,7 @@ using ProjectMgmtSystem.Models.UserModel;
 
 namespace ProjectMgmtSystem.Controllers
 {
-    // 2a. User Controller with CRUD api's and action methods
+    // 2a. User Controller with CRUD api's and action methods (Sprint I)
     [ApiController]
     public class UserController : Controller
     {

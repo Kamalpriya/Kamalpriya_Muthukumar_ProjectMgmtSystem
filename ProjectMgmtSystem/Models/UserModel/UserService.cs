@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ProjectMgmtSystem.Models.UserModel
 {
-    // 2b. User service with CRUD api implementations
+    // 2b. User service with CRUD api implementations (Sprint I)
     public class UserService : IUserRepository
     {
         private static List<User> Users;

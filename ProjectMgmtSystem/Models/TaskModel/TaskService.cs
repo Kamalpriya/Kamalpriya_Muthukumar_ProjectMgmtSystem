@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ProjectMgmtSystem.Models.TaskModel
 {
-    // 2b. Task service with CRUD api implementations
+    // 2b. Task service with CRUD api implementations (Sprint I)
     public class TaskService : ITaskRepository
     {
         private static List<Task> Tasks;

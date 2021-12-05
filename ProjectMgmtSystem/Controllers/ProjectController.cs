@@ -7,7 +7,7 @@ using ProjectMgmtSystem.Models.ProjectModel;
 
 namespace ProjectMgmtSystem.Controllers
 {
-    // 2a. Project Controller with CRUD api's and action methods
+    // 2a. Project Controller with CRUD api's and action methods (Sprint I)
     [ApiController]
     public class ProjectController : Controller
     {

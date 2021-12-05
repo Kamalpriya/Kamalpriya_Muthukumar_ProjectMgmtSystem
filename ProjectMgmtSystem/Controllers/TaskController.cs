@@ -6,7 +6,7 @@ using ProjectMgmtSystem.Models.TaskModel;
 
 namespace ProjectMgmtSystem.Controllers
 {
-    // 2a. Task Controller with CRUD api's and action methods
+    // 2a. Task Controller with CRUD api's and action methods (Sprint I)
     [ApiController]
     public class TaskController : Controller
     {

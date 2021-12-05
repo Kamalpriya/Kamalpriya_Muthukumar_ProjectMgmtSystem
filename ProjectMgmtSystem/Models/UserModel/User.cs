@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectMgmtSystem.Models.UserModel
 {
-    // 1. User model
+    // 1. User model (Sprint I)
     public class User
     {
         public int Id { get; set; }

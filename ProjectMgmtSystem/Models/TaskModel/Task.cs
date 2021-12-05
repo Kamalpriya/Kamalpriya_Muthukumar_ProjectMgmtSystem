@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectMgmtSystem.Models.TaskModel
 {
-    // 1. Task model
+    // 1. Task model (Sprint I)
     public class Task
     {
         [Required]

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ProjectMgmtSystem.Models.ProjectModel
 {
-    // 2b. Project service with CRUD api implementations
+    // 2b. Project service with CRUD api implementations (Sprint I)
     public class ProjectService : IProjectRepository
     {
         private static List<Project> Projects;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectMgmtSystem.Models
 {
-    // 4. User Login Model
+    // 4. User Login Model (Sprint I)
     public class UserLogin
     {
         [Required]
