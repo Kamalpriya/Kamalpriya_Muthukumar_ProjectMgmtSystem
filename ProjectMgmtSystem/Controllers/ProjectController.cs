@@ -7,6 +7,7 @@ using ProjectMgmtSystem.Models.ProjectModel;
 
 namespace ProjectMgmtSystem.Controllers
 {
+    // 2a. Project Controller with CRUD api's and action methods
     [ApiController]
     public class ProjectController : Controller
     {
@@ -32,25 +33,39 @@ namespace ProjectMgmtSystem.Controllers
             var result = _repository.GetProjectById(id);
             if(result == null)
             {
-                return NotFound("no Project found");
+                return NotFound("no project found");
             }
             return Ok(result);
         }
 
         [HttpPost]
         [Route("api/[controller]")]
-        public IActionResult Post(Project Project)
+        public IActionResult Post(Project project)
         {
-            var result = _repository.CreateProject(Project);
-            return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + "/" + HttpContext.Request.Path + "/" + Project.Id, result);
+            if (ModelState.IsValid)
+            {
+                var result = _repository.CreateProject(project);
+                return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + "/" + HttpContext.Request.Path + "/" + project.Id, result);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
 
         [HttpPost]
         [Route("api/[controller]/{id}")]
-        public IActionResult Post(int id, Project Project)
+        public IActionResult Post(int id, Project project)
         {
-            var result = _repository.UpdateProject(id, Project);
-            return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + "/" + HttpContext.Request.Path + "/" + Project.Id, result);
+            if (ModelState.IsValid)
+            {
+                var result = _repository.UpdateProject(id, project);
+                return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + "/" + HttpContext.Request.Path + "/" + project.Id, result);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
 
         [HttpDelete]

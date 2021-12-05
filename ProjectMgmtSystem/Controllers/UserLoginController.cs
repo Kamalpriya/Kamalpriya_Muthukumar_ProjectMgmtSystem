@@ -7,6 +7,7 @@ using ProjectMgmtSystem.Models;
 
 namespace ProjectMgmtSystem.Controllers
 {
+    // 4. User Login Controller with CRUD api and action method
     public class UserLoginController : Controller
     {
         public IActionResult Index()
@@ -19,21 +20,28 @@ namespace ProjectMgmtSystem.Controllers
         [Route("api/[controller]")]
         public string Index(UserLogin userlogin)
         {
-            var result = LoginData().Where(m => m.Username == userlogin.Username && m.Password == userlogin.Password).FirstOrDefault();
-            string display;
-            if(result != null)
+            if (ModelState.IsValid)
             {
-                display = "login successful";
+                var result = LoginData().Where(m => m.Username == userlogin.Username && m.Password == userlogin.Password).FirstOrDefault();
+                string display;
+                if (result != null)
+                {
+                    display = "Login Successful";
+                }
+                else
+                {
+                    result = LoginData().Where(m => m.Username == userlogin.Username).FirstOrDefault();
+                    if (result != null)
+                        display = "Incorrect Password"; //matches some user id, but password incorrect
+                    else
+                        display = "Incorrect Credentials";
+                }
+                return display;
             }
             else
             {
-                result = LoginData().Where(m => m.Username == userlogin.Username).FirstOrDefault();
-                if (result != null)
-                    display = "incorrect password"; //matches some user id, but password incorrect
-                else
-                    display = "incorrect credentials";
+                return "entered Username or Password is empty";
             }
-            return display;
         }
 
         public List<UserLogin> LoginData()

@@ -7,6 +7,7 @@ using ProjectMgmtSystem.Models.UserModel;
 
 namespace ProjectMgmtSystem.Controllers
 {
+    // 2a. User Controller with CRUD api's and action methods
     [ApiController]
     public class UserController : Controller
     {
@@ -41,16 +42,30 @@ namespace ProjectMgmtSystem.Controllers
         [Route("api/[controller]")]
         public IActionResult Post(User user)
         {
-            var result = _repository.CreateUser(user);
-            return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + "/" + HttpContext.Request.Path + "/" + user.Id, result);
+            if(ModelState.IsValid)
+            {
+                var result = _repository.CreateUser(user);
+                return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + "/" + HttpContext.Request.Path + "/" + user.Id, result);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
 
         [HttpPost]
         [Route("api/[controller]/{id}")]
         public IActionResult Post(int id, User user)
         {
-            var result = _repository.UpdateUser(id, user);
-            return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + "/" + HttpContext.Request.Path + "/" + user.Id, result);
+            if (ModelState.IsValid)
+            {
+                var result = _repository.UpdateUser(id, user);
+                return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + "/" + HttpContext.Request.Path + "/" + user.Id, result);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
 
         [HttpDelete]

@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace ProjectMgmtSystem.Models.ProjectModel
 {
+    // 2b. Project service with CRUD api implementations
     public class ProjectService : IProjectRepository
     {
-        private List<Project> Projects;
+        private static List<Project> Projects;
         private static int cnt = 4;
 
         public ProjectService()
@@ -54,10 +55,10 @@ namespace ProjectMgmtSystem.Models.ProjectModel
 
         public Project UpdateProject(int id, Project inpProject)
         {
-            Project Project = GetProjectById(id);
-            Projects.Remove(Project);
-            Projects.Insert(id - 1, inpProject); // list indexing starts from 0, insert at i-1
-            return GetProjectById(id);
+            Project project = GetProjectById(id);
+            Projects.Remove(project);  
+            Projects.Add(inpProject);  
+            return GetProjectById(inpProject.Id);
         }
     }
 }

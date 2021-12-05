@@ -6,6 +6,7 @@ using ProjectMgmtSystem.Models.TaskModel;
 
 namespace ProjectMgmtSystem.Controllers
 {
+    // 2a. Task Controller with CRUD api's and action methods
     [ApiController]
     public class TaskController : Controller
     {
@@ -40,16 +41,30 @@ namespace ProjectMgmtSystem.Controllers
         [Route("api/[controller]")]
         public IActionResult Post(Task task)
         {
-            var result = _repository.CreateTask(task);
-            return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + "/" + HttpContext.Request.Path + "/" + task.Id, result);
+            if (ModelState.IsValid)
+            {
+                var result = _repository.CreateTask(task);
+                return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + "/" + HttpContext.Request.Path + "/" + task.Id, result);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
 
         [HttpPost]
         [Route("api/[controller]/{id}")]
         public IActionResult Post(int id, Task task)
         {
-            var result = _repository.UpdateTask(id, task);
-            return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + "/" + HttpContext.Request.Path + "/" + task.Id, result);
+            if (ModelState.IsValid)
+            {
+                var result = _repository.UpdateTask(id, task);
+                return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + "/" + HttpContext.Request.Path + "/" + task.Id, result);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
 
         [HttpDelete]

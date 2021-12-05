@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace ProjectMgmtSystem.Models.TaskModel
 {
+    // 2b. Task service with CRUD api implementations
     public class TaskService : ITaskRepository
     {
-        private List<Task> Tasks;
+        private static List<Task> Tasks;
         private static int cnt = 4;
 
         public TaskService()
@@ -53,10 +54,10 @@ namespace ProjectMgmtSystem.Models.TaskModel
 
         public Task UpdateTask(int id, Task inpTask)
         {
-            Task Task = GetTaskById(id);
-            Tasks.Remove(Task);
-            Tasks.Insert(id - 1, inpTask); // list indexing starts from 0, insert at i-1
-            return GetTaskById(id);
+            Task task = GetTaskById(id);
+            Tasks.Remove(task);
+            Tasks.Add(inpTask);
+            return GetTaskById(inpTask.Id);
         }
     }
 }

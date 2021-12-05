@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace ProjectMgmtSystem.Models.UserModel
 {
+    // 2b. User service with CRUD api implementations
     public class UserService : IUserRepository
     {
-        private List<User> Users;
+        private static List<User> Users;
         private static int cnt = 4;
 
         public UserService()
@@ -55,9 +56,9 @@ namespace ProjectMgmtSystem.Models.UserModel
         public User UpdateUser(int id, User inpUser)
         {
             User user = GetUserById(id);
-            Users.Remove(user);
-            Users.Insert(id - 1, inpUser); // list indexing starts from 0, insert at i-1
-            return GetUserById(id);
+            Users.Remove(user);  // remove user at the id
+            Users.Add(inpUser);  // insert updated user at end of list 
+            return GetUserById(inpUser.Id);
         }
     }
 }
