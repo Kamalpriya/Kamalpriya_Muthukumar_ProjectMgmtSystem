@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ProjectMgmtSystem.Models.UserModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProjectMgmtSystem.Controllers
 {
@@ -11,11 +12,13 @@ namespace ProjectMgmtSystem.Controllers
     [ApiController]
     public class UserController : Controller
     {
+        //private readonly IUserRepository _repository;
+
         private readonly IUserRepository _repository;
 
-        public UserController(IUserRepository repository)
+        public UserController()
         {
-            _repository = repository;
+            _repository = new UserService(new UserDBContext(new DbContextOptions<UserDBContext> ()));
         }
 
         [HttpGet]

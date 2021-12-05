@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using ProjectMgmtSystem.Models.UserModel;
 using ProjectMgmtSystem.Models.ProjectModel;
 using ProjectMgmtSystem.Models.TaskModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProjectMgmtSystem
 {
@@ -29,11 +30,16 @@ namespace ProjectMgmtSystem
         public void ConfigureServices(IServiceCollection services)
         {
             // 3. Implemented DI : dependency injection for all services - User, Project, Task (Sprint I)
-            services.AddSingleton<IUserRepository, UserService>();
-            services.AddSingleton<IProjectRepository, ProjectService>();
-            services.AddSingleton<ITaskRepository, TaskService>();
+            services.AddScoped<IUserRepository, UserService>();
+            services.AddScoped<IProjectRepository, ProjectService>();
+            services.AddScoped<ITaskRepository, TaskService>();
 
             services.AddControllers();
+
+            var connectionString = Configuration.GetConnectionString("Default");
+
+            services.AddDbContext<UserDBContext>(options => options.UseSqlServer(connectionString));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProjectMgmtSystem", Version = "v1" });
