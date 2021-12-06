@@ -11,41 +11,39 @@ namespace ProjectMgmtSystem.Controllers
     [ApiController]
     public class ProjectController : Controller
     {
-        private readonly IProjectRepository _repository;
+        private readonly IProjectRepository _projects;
 
-        public ProjectController(IProjectRepository repository)
+        public ProjectController(IProjectRepository projects)
         {
-            _repository = repository;
+            _projects = projects;
         }
 
         [HttpGet]
         [Route("api/[controller]")]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var result = _repository.GetAllProjects();
-            return Ok(result);
+            return Ok(await _projects.GetAllProjectsAsync());
         }
 
         [HttpGet]
         [Route("api/[controller]/{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            var result = _repository.GetProjectById(id);
-            if(result == null)
+            var result = await _projects.GetProjectByIdAsync(id);
+            if (result == null)
             {
-                return NotFound("no project found");
+                return NotFound();
             }
             return Ok(result);
         }
 
         [HttpPost]
         [Route("api/[controller]")]
-        public IActionResult Post(Project project)
+        public async Task<IActionResult> Post(Project project)
         {
             if (ModelState.IsValid)
             {
-                var result = _repository.CreateProject(project);
-                return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + "/" + HttpContext.Request.Path + "/" + project.Id, result);
+                return Ok(await _projects.CreateProjectAsync(project));
             }
             else
             {
@@ -55,12 +53,11 @@ namespace ProjectMgmtSystem.Controllers
 
         [HttpPost]
         [Route("api/[controller]/{id}")]
-        public IActionResult Post(int id, Project project)
+        public async Task<IActionResult> Post(int id, Project inpProject)
         {
             if (ModelState.IsValid)
             {
-                var result = _repository.UpdateProject(id, project);
-                return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + "/" + HttpContext.Request.Path + "/" + project.Id, result);
+                return Ok(await _projects.UpdateProjectAsync(id, inpProject));
             }
             else
             {
@@ -70,9 +67,15 @@ namespace ProjectMgmtSystem.Controllers
 
         [HttpDelete]
         [Route("api/[controller]")]
-        public string Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            return _repository.DeleteProject(id);
+            var result = await _projects.GetProjectByIdAsync(id);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            result = await _projects.DeleteProjectAsync(id);
+            return Ok(result);
         }
     }
 }

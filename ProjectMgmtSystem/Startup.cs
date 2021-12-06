@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ProjectMgmtSystem.Models;
 using ProjectMgmtSystem.Models.UserModel;
 using ProjectMgmtSystem.Models.ProjectModel;
 using ProjectMgmtSystem.Models.TaskModel;
@@ -29,16 +30,16 @@ namespace ProjectMgmtSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
+
+            // 2. injecting DB context (Sprint II)
+            var connectionString = Configuration.GetConnectionString("Default");
+            services.AddDbContext<AppDBContext>(options => options.UseSqlServer(connectionString));
+
             // 3. Implemented DI : dependency injection for all services - User, Project, Task (Sprint I)
             services.AddScoped<IUserRepository, UserService>();
             services.AddScoped<IProjectRepository, ProjectService>();
-            services.AddScoped<ITaskRepository, TaskService>();
-
-            services.AddControllers();
-
-            var connectionString = Configuration.GetConnectionString("Default");
-
-            services.AddDbContext<UserDBContext>(options => options.UseSqlServer(connectionString));
+            services.AddScoped<ITask1Repository, Task1Service>();
 
             services.AddSwaggerGen(c =>
             {

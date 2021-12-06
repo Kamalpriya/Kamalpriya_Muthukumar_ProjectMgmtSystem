@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,80 +7,49 @@ using System.Threading.Tasks;
 namespace ProjectMgmtSystem.Models.UserModel
 {
     // 2b. User service with CRUD api implementations (Sprint I)
+    
+    // 1. Implementation of user repository interface (Sprint II)
     public class UserService : IUserRepository
     {
-        //private static List<User> Users;
-        //private static int cnt = 4;
+        private readonly AppDBContext _context;
 
-        private readonly UserDBContext _context;
-
-        public UserService(UserDBContext context)
+        public UserService(AppDBContext context)
         {
-            //Users = new List<User>()
-            //{
-            //    new User(){Id=1, FirstName="John", LastName="Doe", Email="john.doe@test.com", Password="jd1234"},
-            //    new User(){Id=2, FirstName="John", LastName="Skeet", Email="john.skeet@test.com", Password="js5678"},
-            //    new User(){Id=3, FirstName="Mark", LastName="Seeman", Email="mark.seeman@test.com", Password="ms1234"},
-            //    new User(){Id=4, FirstName="Bob", LastName="Martin", Email="bob.martin@test.com", Password="bm5678"}
-            //};
-
-            _context = context;
+             _context = context;
         }
-        public User CreateUser(User user)
+
+        async Task<User> IUserRepository.CreateUserAsync(User user)
         {
-            //user.Id = ++cnt;
-            //Users.Add(user);
-            //return user;
-            
             _context.Users.Add(user);
-            _context.SaveChanges();
-             return _context.Users.Find(user.Id);
+            await _context.SaveChangesAsync();
+            return user;
         }
 
-        public string DeleteUser(int id)
+        async Task<User> IUserRepository.DeleteUserAsync(int id)
         {
-            //User user = GetUserById(id);
-            //Users.Remove(user);
-            //cnt--;
-            //return "user deleted";
-
-            User user = _context.Users.Find(id);
-            _context.Users.Remove(user);
-            _context.SaveChanges();
-            return "user deleted";
+            var result = _context.Users.FirstOrDefault(user => user.Id == id);
+            _context.Users.Remove(result);
+            await _context.SaveChangesAsync();
+            return result;
         }
 
-        public List<User> GetAllUsers()
+        async Task<List<User>> IUserRepository.GetAllUsersAsync()
         {
-            //return Users;
-            return _context.Users.ToList();
+            return await _context.Users.ToListAsync();
         }
 
-        public User GetUserById(int id)
+        async Task<User> IUserRepository.GetUserByIdAsync(int id)
         {
-            //foreach (var user in Users)
-            //{
-            //    if(user.Id == id)
-            //    {
-            //        return user;
-            //    }
-            //}
-            //return null;
-            return _context.Users.Find(id);
+            return await _context.Users.FirstOrDefaultAsync(user => user.Id == id);
         }
 
-        public User UpdateUser(int id, User inpUser)
+        async Task<User> IUserRepository.UpdateUserAsync(int id, User inpUser)
         {
-            //User user = GetUserById(id);
-            //Users.Remove(user);  // remove user at the id
-            //Users.Add(inpUser);  // insert updated user at end of list 
-            //return GetUserById(inpUser.Id);
-
-            User user = _context.Users.Find(id);
-            _context.Users.Remove(user); // remove user at the id
-            _context.Users.Add(inpUser); // insert updated user at end of list 
-            _context.SaveChanges();
-            return _context.Users.Find(id);
+            var result = _context.Users.FirstOrDefault(user => user.Id == id);
+            _context.Users.Remove(result);
+            _context.Users.Add(inpUser);
+            await _context.SaveChangesAsync();
+            return inpUser;
         }
     }
 }

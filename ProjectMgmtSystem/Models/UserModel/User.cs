@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 namespace ProjectMgmtSystem.Models.UserModel
 {
     // 1. User model (Sprint I)
-    //[Table("User")]
+    [Table("User")]
     public class User
     {
-        //[Key]
+        [Key]
         public int Id { get; set; }
         
         [Required]
@@ -25,6 +25,5 @@ namespace ProjectMgmtSystem.Models.UserModel
 
         [Required]
         public string Password { get; set; }
-
     }
 }

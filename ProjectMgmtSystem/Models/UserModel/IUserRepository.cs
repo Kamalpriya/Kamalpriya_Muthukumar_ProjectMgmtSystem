@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 
 namespace ProjectMgmtSystem.Models.UserModel
 {
+    // 1. Repository interface for User (Sprint II)
     public interface IUserRepository
     {
-        public User CreateUser(User user);
-        public User UpdateUser(int id, User user);
-        public List<User> GetAllUsers();
-        public User GetUserById(int id);
-        public string DeleteUser(int id);
+        public Task<User> CreateUserAsync (User user);
+        public Task<User> UpdateUserAsync(int id, User user);
+        public Task<List<User>> GetAllUsersAsync();
+        public Task<User> GetUserByIdAsync(int id);
+        public Task<User> DeleteUserAsync(int id);
     }
 }

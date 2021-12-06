@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectMgmtSystem.Models;
 
 namespace ProjectMgmtSystem.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class UserDBContextModelSnapshot : ModelSnapshot
+    [Migration("20211206003001_SeedData2")]
+    partial class SeedData2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,28 +46,28 @@ namespace ProjectMgmtSystem.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2021, 12, 6, 6, 45, 53, 957, DateTimeKind.Local).AddTicks(2736),
+                            CreatedOn = new DateTime(2021, 12, 6, 5, 59, 59, 770, DateTimeKind.Local).AddTicks(1628),
                             Detail = "This is a test project",
                             Name = "TestProject1"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2021, 12, 6, 6, 45, 53, 985, DateTimeKind.Local).AddTicks(5298),
+                            CreatedOn = new DateTime(2021, 12, 6, 5, 59, 59, 772, DateTimeKind.Local).AddTicks(8880),
                             Detail = "This is a test project",
                             Name = "TestProject2"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2021, 12, 6, 6, 45, 53, 985, DateTimeKind.Local).AddTicks(5365),
+                            CreatedOn = new DateTime(2021, 12, 6, 5, 59, 59, 772, DateTimeKind.Local).AddTicks(8924),
                             Detail = "This is a test project",
                             Name = "TestProject3"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedOn = new DateTime(2021, 12, 6, 6, 45, 53, 985, DateTimeKind.Local).AddTicks(5373),
+                            CreatedOn = new DateTime(2021, 12, 6, 5, 59, 59, 772, DateTimeKind.Local).AddTicks(8930),
                             Detail = "This is a test project",
                             Name = "TestProject4"
                         });
@@ -102,7 +104,7 @@ namespace ProjectMgmtSystem.Migrations
                         {
                             Id = 1,
                             AssignedToUserId = 1,
-                            CreatedOn = new DateTime(2021, 12, 6, 6, 45, 53, 986, DateTimeKind.Local).AddTicks(3559),
+                            CreatedOn = new DateTime(2021, 12, 6, 5, 59, 59, 773, DateTimeKind.Local).AddTicks(6135),
                             Detail = "This is a test task",
                             ProjectId = 1,
                             Status = 2
@@ -111,7 +113,7 @@ namespace ProjectMgmtSystem.Migrations
                         {
                             Id = 2,
                             AssignedToUserId = 2,
-                            CreatedOn = new DateTime(2021, 12, 6, 6, 45, 53, 986, DateTimeKind.Local).AddTicks(4653),
+                            CreatedOn = new DateTime(2021, 12, 6, 5, 59, 59, 775, DateTimeKind.Local).AddTicks(638),
                             Detail = "This is a test task",
                             ProjectId = 1,
                             Status = 3
@@ -120,7 +122,7 @@ namespace ProjectMgmtSystem.Migrations
                         {
                             Id = 3,
                             AssignedToUserId = 2,
-                            CreatedOn = new DateTime(2021, 12, 6, 6, 45, 53, 986, DateTimeKind.Local).AddTicks(4674),
+                            CreatedOn = new DateTime(2021, 12, 6, 5, 59, 59, 775, DateTimeKind.Local).AddTicks(682),
                             Detail = "This is a test task",
                             ProjectId = 2,
                             Status = 4

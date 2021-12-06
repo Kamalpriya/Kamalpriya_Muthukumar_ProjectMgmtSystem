@@ -3,36 +3,34 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ProjectMgmtSystem.Models;
-using ProjectMgmtSystem.Models.UserModel;
-using Microsoft.EntityFrameworkCore;
+using ProjectMgmtSystem.Models.TaskModel;
 
 namespace ProjectMgmtSystem.Controllers
 {
-    // 2a. User Controller with CRUD api's and action methods (Sprint I)
+    // 2a. Task Controller with CRUD api's and action methods (Sprint I)
     [ApiController]
-    public class UserController : Controller
+    public class Task1Controller : Controller
     {
-        private readonly IUserRepository _users;
+        private readonly ITask1Repository _tasks;
 
-        public UserController(IUserRepository users)
+        public Task1Controller(ITask1Repository tasks)
         {
-            _users = users;
+            _tasks = tasks;
         }
 
         [HttpGet]
         [Route("api/[controller]")]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _users.GetAllUsersAsync());
+            return Ok(await _tasks.GetAllTasksAsync());
         }
 
         [HttpGet]
         [Route("api/[controller]/{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var result = await _users.GetUserByIdAsync(id);
-            if(result == null)
+            var result = await _tasks.GetTaskByIdAsync(id);
+            if (result == null)
             {
                 return NotFound();
             }
@@ -41,11 +39,11 @@ namespace ProjectMgmtSystem.Controllers
 
         [HttpPost]
         [Route("api/[controller]")]
-        public async Task<IActionResult> Post(User user)
+        public async Task<IActionResult> Post(Task1 task)
         {
             if (ModelState.IsValid)
             {
-                return Ok(await _users.CreateUserAsync(user));
+                return Ok(await _tasks.CreateTaskAsync(task));
             }
             else
             {
@@ -55,11 +53,11 @@ namespace ProjectMgmtSystem.Controllers
 
         [HttpPost]
         [Route("api/[controller]/{id}")]
-        public async Task<IActionResult> Post(int id, User inpUser)
+        public async Task<IActionResult> Post(int id, Task1 inpTask)
         {
             if (ModelState.IsValid)
             {
-                return Ok(await _users.UpdateUserAsync(id, inpUser));
+                return Ok(await _tasks.UpdateTaskAsync(id, inpTask));
             }
             else
             {
@@ -71,12 +69,12 @@ namespace ProjectMgmtSystem.Controllers
         [Route("api/[controller]")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _users.GetUserByIdAsync(id);
+            var result = await _tasks.GetTaskByIdAsync(id);
             if (result == null)
             {
                 return NotFound();
             }
-            result = await _users.DeleteUserAsync(id);
+            result = await _tasks.DeleteTaskAsync(id);
             return Ok(result);
         }
     }
