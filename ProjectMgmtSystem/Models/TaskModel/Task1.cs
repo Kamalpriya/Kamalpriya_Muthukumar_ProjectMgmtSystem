@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ProjectMgmtSystem.Models.TaskModel
 {
     // 1. Task model (Sprint I)
-    public class Task
+    [Table("Task1")]
+    public class Task1
     {
-        [Required]
+        [Key]
         public int Id { get; set; }
 
         [Required]
@@ -24,6 +25,5 @@ namespace ProjectMgmtSystem.Models.TaskModel
         public string Detail { get; set; }
 
         public DateTime CreatedOn { get; set; }
-
     }
 }

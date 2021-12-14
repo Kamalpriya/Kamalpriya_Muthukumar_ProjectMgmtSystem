@@ -10,9 +10,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ProjectMgmtSystem.Models;
 using ProjectMgmtSystem.Models.UserModel;
 using ProjectMgmtSystem.Models.ProjectModel;
 using ProjectMgmtSystem.Models.TaskModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProjectMgmtSystem
 {
@@ -28,12 +30,17 @@ namespace ProjectMgmtSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // 3. Implemented DI : dependency injection for all services - User, Project, Task (Sprint I)
-            services.AddSingleton<IUserRepository, UserService>();
-            services.AddSingleton<IProjectRepository, ProjectService>();
-            services.AddSingleton<ITaskRepository, TaskService>();
-
             services.AddControllers();
+
+            // 2. injecting DB context (Sprint II)
+            var connectionString = Configuration.GetConnectionString("Default");
+            services.AddDbContext<AppDBContext>(options => options.UseSqlServer(connectionString));
+
+            // 3. Implemented DI : dependency injection for all services - User, Project, Task (Sprint I)
+            services.AddScoped<IUserRepository, UserService>();
+            services.AddScoped<IProjectRepository, ProjectService>();
+            services.AddScoped<ITask1Repository, Task1Service>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProjectMgmtSystem", Version = "v1" });

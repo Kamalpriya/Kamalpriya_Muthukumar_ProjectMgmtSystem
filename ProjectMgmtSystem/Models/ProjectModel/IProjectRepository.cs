@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 
 namespace ProjectMgmtSystem.Models.ProjectModel
 {
+    // 1. Repository interface for Project (Sprint II)
     public interface IProjectRepository
     {
-        public Project CreateProject(Project Project);
-        public Project UpdateProject(int id, Project Project);
-        public List<Project> GetAllProjects();
-        public Project GetProjectById(int id);
-        public string DeleteProject(int id);
+        public Task<Project> CreateProjectAsync(Project project);
+        public Task<Project> UpdateProjectAsync(int id, Project project);
+        public Task<List<Project>> GetAllProjectsAsync();
+        public Task<Project> GetProjectByIdAsync(int id);
+        public Task<Project> DeleteProjectAsync(int id);
     }
 }

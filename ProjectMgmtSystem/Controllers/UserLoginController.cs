@@ -10,6 +10,13 @@ namespace ProjectMgmtSystem.Controllers
     // 4. User Login Controller with CRUD api and action method (Sprint I)
     public class UserLoginController : Controller
     {
+        private readonly AppDBContext _context;
+
+        public UserLoginController(AppDBContext context)
+        {
+            _context = context;
+        }
+
         public IActionResult Index()
         {
             UserLogin obj = new UserLogin();
@@ -22,7 +29,7 @@ namespace ProjectMgmtSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = LoginData().Where(m => m.Username == userlogin.Username && m.Password == userlogin.Password).FirstOrDefault();
+                var result = _context.Logins.Where(m => m.Username == userlogin.Username && m.Password == userlogin.Password).FirstOrDefault();
                 string display;
                 if (result != null)
                 {
@@ -30,7 +37,7 @@ namespace ProjectMgmtSystem.Controllers
                 }
                 else
                 {
-                    result = LoginData().Where(m => m.Username == userlogin.Username).FirstOrDefault();
+                    result = _context.Logins.Where(m => m.Username == userlogin.Username).FirstOrDefault();
                     if (result != null)
                         display = "Incorrect Password"; //matches some user id, but password incorrect
                     else
@@ -42,16 +49,6 @@ namespace ProjectMgmtSystem.Controllers
             {
                 return "entered Username or Password is empty";
             }
-        }
-
-        public List<UserLogin> LoginData()
-        {
-            List<UserLogin> loginData = new List<UserLogin>();
-            loginData.Add(new UserLogin { Username = "JohnDoe", Password = "jd1234" });
-            loginData.Add(new UserLogin { Username = "JohnSkeet", Password = "js5678" });
-            loginData.Add(new UserLogin { Username = "MarkSeeman", Password = "ms1234" });
-            loginData.Add(new UserLogin { Username = "BobMartin", Password = "bm5678" });
-            return loginData;
         }
     }
 }

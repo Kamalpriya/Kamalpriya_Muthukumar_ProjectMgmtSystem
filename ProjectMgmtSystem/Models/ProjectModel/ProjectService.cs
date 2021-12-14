@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,59 +7,49 @@ using System.Threading.Tasks;
 namespace ProjectMgmtSystem.Models.ProjectModel
 {
     // 2b. Project service with CRUD api implementations (Sprint I)
+
+    // 1. Implementation of project repository interface (Sprint II)
     public class ProjectService : IProjectRepository
     {
-        private static List<Project> Projects;
-        private static int cnt = 4;
+        private readonly AppDBContext _context;
 
-        public ProjectService()
+        public ProjectService(AppDBContext context)
         {
-            Projects = new List<Project>()
-            {
-                new Project(){Id=1, Name="TestProject1", Detail="This is a test project", CreatedOn=DateTime.Now},
-                new Project(){Id=2, Name="TestProject2", Detail="This is a test project", CreatedOn=DateTime.Now},
-                new Project(){Id=3, Name="TestProject3", Detail="This is a test project", CreatedOn=DateTime.Now},
-                new Project(){Id=4, Name="TestProject4", Detail="This is a test project", CreatedOn=DateTime.Now}
-            };
+            _context = context;
         }
-        public Project CreateProject(Project project)
+
+        async Task<Project> IProjectRepository.CreateProjectAsync(Project project)
         {
-            project.Id = ++cnt;
-            Projects.Add(project);
+            _context.Projects.Add(project);
+            await _context.SaveChangesAsync();
             return project;
         }
 
-        public string DeleteProject(int id)
+        async Task<Project> IProjectRepository.DeleteProjectAsync(int id)
         {
-            Project Project = GetProjectById(id);
-            Projects.Remove(Project);
-            cnt--;
-            return "Project deleted";
+            var result = _context.Projects.FirstOrDefault(Project => Project.Id == id);
+            _context.Projects.Remove(result);
+            await _context.SaveChangesAsync();
+            return result;
         }
 
-        public List<Project> GetAllProjects()
+        async Task<List<Project>> IProjectRepository.GetAllProjectsAsync()
         {
-            return Projects;
+            return await _context.Projects.ToListAsync();
         }
 
-        public Project GetProjectById(int id)
+        async Task<Project> IProjectRepository.GetProjectByIdAsync(int id)
         {
-            foreach (var Project in Projects)
-            {
-                if(Project.Id == id)
-                {
-                    return Project;
-                }
-            }
-            return null;
+            return await _context.Projects.FirstOrDefaultAsync(Project => Project.Id == id);
         }
 
-        public Project UpdateProject(int id, Project inpProject)
+        async Task<Project> IProjectRepository.UpdateProjectAsync(int id, Project inpProject)
         {
-            Project project = GetProjectById(id);
-            Projects.Remove(project);  
-            Projects.Add(inpProject);  
-            return GetProjectById(inpProject.Id);
+            var result = _context.Projects.FirstOrDefault(Project => Project.Id == id);
+            _context.Projects.Remove(result);
+            _context.Projects.Add(inpProject);
+            await _context.SaveChangesAsync();
+            return inpProject;
         }
     }
 }
