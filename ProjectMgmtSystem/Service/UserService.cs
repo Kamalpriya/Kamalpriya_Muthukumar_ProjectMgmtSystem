@@ -1,31 +1,31 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProjectMgmtSystem.Models.UserModel;
+using ProjectMgmtSystem.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProjectMgmtSystem.Models.UserModel
+namespace ProjectMgmtSystem.Service
 {
-    // 2b. User service with CRUD api implementations (Sprint I)
-    
-    // 1. Implementation of user repository interface (Sprint II)
-    public class UserService : IUserRepository
+    // (Sprint II) -- 1. Implementation of generic repository for User
+    public class UserService : IGenericRepository<User>
     {
         private readonly AppDBContext _context;
 
         public UserService(AppDBContext context)
         {
-             _context = context;
+            _context = context;
         }
 
-        async Task<User> IUserRepository.CreateUserAsync(User user)
+        public async Task<User> CreateAsync(User user)
         {
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
             return user;
         }
 
-        async Task<User> IUserRepository.DeleteUserAsync(int id)
+        public async Task<User> DeleteAsync(int id)
         {
             var result = _context.Users.FirstOrDefault(user => user.Id == id);
             _context.Users.Remove(result);
@@ -33,17 +33,17 @@ namespace ProjectMgmtSystem.Models.UserModel
             return result;
         }
 
-        async Task<List<User>> IUserRepository.GetAllUsersAsync()
+        public async Task<List<User>> GetAllAsync()
         {
             return await _context.Users.ToListAsync();
         }
 
-        async Task<User> IUserRepository.GetUserByIdAsync(int id)
+        public async Task<User> GetByIdAsync(int id)
         {
             return await _context.Users.FirstOrDefaultAsync(user => user.Id == id);
         }
 
-        async Task<User> IUserRepository.UpdateUserAsync(int id, User inpUser)
+        public async Task<User> UpdateAsync(int id, User inpUser)
         {
             var result = _context.Users.FirstOrDefault(user => user.Id == id);
             _context.Users.Remove(result);

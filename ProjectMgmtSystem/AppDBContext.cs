@@ -1,19 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.SqlServer;
-using Microsoft.Extensions.Configuration;
+using ProjectMgmtSystem.Models;
+using ProjectMgmtSystem.Models.ProjectModel;
+using ProjectMgmtSystem.Models.TaskModel;
+using ProjectMgmtSystem.Models.UserModel;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
-using ProjectMgmtSystem.Models.UserModel;
-using ProjectMgmtSystem.Models.TaskModel;
-using ProjectMgmtSystem.Models.ProjectModel;
 
-namespace ProjectMgmtSystem.Models
+namespace ProjectMgmtSystem
 {
-    // 2. DbContext (Sprint II)
+    // (Sprint II) -- 2. Create DbContext
     public class AppDBContext : DbContext
     {
         public DbSet<User> Users { get; set; }
@@ -29,7 +26,7 @@ namespace ProjectMgmtSystem.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // 3. invoke data seeding from dbcontext (Sprint II)
+            // (Sprint II) -- 3. invoke data seeding from dbcontext
             modelBuilder.Seed();
         }
     }

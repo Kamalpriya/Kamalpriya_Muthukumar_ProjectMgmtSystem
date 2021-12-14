@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ProjectMgmtSystem.Models.ProjectModel;
+using ProjectMgmtSystem.Repository;
 
 namespace ProjectMgmtSystem.Controllers
 {
@@ -11,9 +12,9 @@ namespace ProjectMgmtSystem.Controllers
     [ApiController]
     public class ProjectController : Controller
     {
-        private readonly IProjectRepository _projects;
+        private readonly IGenericRepository<Project> _projects;
 
-        public ProjectController(IProjectRepository projects)
+        public ProjectController(IGenericRepository<Project> projects)
         {
             _projects = projects;
         }
@@ -22,14 +23,14 @@ namespace ProjectMgmtSystem.Controllers
         [Route("api/[controller]")]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _projects.GetAllProjectsAsync());
+            return Ok(await _projects.GetAllAsync());
         }
 
         [HttpGet]
         [Route("api/[controller]/{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var result = await _projects.GetProjectByIdAsync(id);
+            var result = await _projects.GetByIdAsync(id);
             if (result == null)
             {
                 return NotFound();
@@ -43,7 +44,7 @@ namespace ProjectMgmtSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                return Ok(await _projects.CreateProjectAsync(project));
+                return Ok(await _projects.CreateAsync(project));
             }
             else
             {
@@ -57,7 +58,7 @@ namespace ProjectMgmtSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                return Ok(await _projects.UpdateProjectAsync(id, inpProject));
+                return Ok(await _projects.UpdateAsync(id, inpProject));
             }
             else
             {
@@ -69,12 +70,12 @@ namespace ProjectMgmtSystem.Controllers
         [Route("api/[controller]")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _projects.GetProjectByIdAsync(id);
+            var result = await _projects.GetByIdAsync(id);
             if (result == null)
             {
                 return NotFound();
             }
-            result = await _projects.DeleteProjectAsync(id);
+            result = await _projects.DeleteAsync(id);
             return Ok(result);
         }
     }

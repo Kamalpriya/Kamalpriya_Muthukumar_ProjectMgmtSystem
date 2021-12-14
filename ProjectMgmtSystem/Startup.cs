@@ -10,11 +10,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ProjectMgmtSystem.Models;
 using ProjectMgmtSystem.Models.UserModel;
 using ProjectMgmtSystem.Models.ProjectModel;
 using ProjectMgmtSystem.Models.TaskModel;
 using Microsoft.EntityFrameworkCore;
+using ProjectMgmtSystem.Repository;
+using ProjectMgmtSystem.Service;
 
 namespace ProjectMgmtSystem
 {
@@ -32,14 +33,14 @@ namespace ProjectMgmtSystem
         {
             services.AddControllers();
 
-            // 2. injecting DB context (Sprint II)
+            // (Sprint II) -- 2. injecting DB context with in memory DB
             var connectionString = Configuration.GetConnectionString("Default");
             services.AddDbContext<AppDBContext>(options => options.UseSqlServer(connectionString));
 
             // 3. Implemented DI : dependency injection for all services - User, Project, Task (Sprint I)
-            services.AddScoped<IUserRepository, UserService>();
-            services.AddScoped<IProjectRepository, ProjectService>();
-            services.AddScoped<ITask1Repository, Task1Service>();
+            services.AddScoped<IGenericRepository<User>, UserService>();
+            services.AddScoped<IGenericRepository<Project>, ProjectService>();
+            services.AddScoped<IGenericRepository<Task1>, Task1Service>();
 
             services.AddSwaggerGen(c =>
             {

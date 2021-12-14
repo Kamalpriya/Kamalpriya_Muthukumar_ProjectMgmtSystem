@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ProjectMgmtSystem.Models.UserModel
 {
-    // 1. Repository interface for User (Sprint II)
+    // (Sprint II) -- 1. Repository interface for User
     public interface IUserRepository
     {
         public Task<User> CreateUserAsync (User user);

@@ -1,15 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProjectMgmtSystem.Models.ProjectModel;
+using ProjectMgmtSystem.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProjectMgmtSystem.Models.ProjectModel
+namespace ProjectMgmtSystem.Service
 {
-    // 2b. Project service with CRUD api implementations (Sprint I)
-
-    // 1. Implementation of project repository interface (Sprint II)
-    public class ProjectService : IProjectRepository
+    // (Sprint II) -- 1. Implementation of generic repository for Project
+    public class ProjectService : IGenericRepository<Project>
     {
         private readonly AppDBContext _context;
 
@@ -18,14 +18,14 @@ namespace ProjectMgmtSystem.Models.ProjectModel
             _context = context;
         }
 
-        async Task<Project> IProjectRepository.CreateProjectAsync(Project project)
+        public async Task<Project> CreateAsync(Project project)
         {
             _context.Projects.Add(project);
             await _context.SaveChangesAsync();
             return project;
         }
 
-        async Task<Project> IProjectRepository.DeleteProjectAsync(int id)
+        public async Task<Project> DeleteAsync(int id)
         {
             var result = _context.Projects.FirstOrDefault(Project => Project.Id == id);
             _context.Projects.Remove(result);
@@ -33,17 +33,17 @@ namespace ProjectMgmtSystem.Models.ProjectModel
             return result;
         }
 
-        async Task<List<Project>> IProjectRepository.GetAllProjectsAsync()
+        public async Task<List<Project>> GetAllAsync()
         {
             return await _context.Projects.ToListAsync();
         }
 
-        async Task<Project> IProjectRepository.GetProjectByIdAsync(int id)
+        public async Task<Project> GetByIdAsync(int id)
         {
             return await _context.Projects.FirstOrDefaultAsync(Project => Project.Id == id);
         }
 
-        async Task<Project> IProjectRepository.UpdateProjectAsync(int id, Project inpProject)
+        public async Task<Project> UpdateAsync(int id, Project inpProject)
         {
             var result = _context.Projects.FirstOrDefault(Project => Project.Id == id);
             _context.Projects.Remove(result);

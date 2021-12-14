@@ -3,10 +3,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using ProjectMgmtSystem.Models;
 using ProjectMgmtSystem.Models.ProjectModel;
 using ProjectMgmtSystem.Models.TaskModel;
 using ProjectMgmtSystem.Models.UserModel;
+using ProjectMgmtSystem.Repository;
+using ProjectMgmtSystem.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,20 +19,20 @@ namespace ProjectMgmtSystem
     {
         public static void Main(string[] args)
         {
-            // 4. Call Repository methods from api end point at client
+            // (Sprint II) -- 4. Call Repository methods from api end point at client
             var apiCaller = new ServiceCollection();
-            apiCaller.AddDbContext<AppDBContext>().AddScoped<IUserRepository, UserService>().
-                AddScoped<IProjectRepository, ProjectService>().
-                AddScoped<ITask1Repository, Task1Service>();
+            apiCaller.AddDbContext<AppDBContext>().AddScoped<IGenericRepository<User>, UserService>().
+                AddScoped<IGenericRepository<Project>, ProjectService>().
+                AddScoped<IGenericRepository<Task1>, Task1Service>();
 
             var service = apiCaller.BuildServiceProvider();
-            var _userRepo = service.GetService<IUserRepository>();
-            var _projectRepo = service.GetService<IProjectRepository>();
-            var _taskRepo = service.GetService<ITask1Repository>();
+            var _userRepo = service.GetService <IGenericRepository<User>>();
+            var _projectRepo = service.GetService <IGenericRepository<Project>>();
+            var _taskRepo = service.GetService <IGenericRepository<Task1>>();
 
-            var userList = _userRepo.GetUserByIdAsync(1);
+            // invoke repository method
+            var userList = _userRepo.GetAllAsync();
             
-
             CreateHostBuilder(args).Build().Run();
         }
 

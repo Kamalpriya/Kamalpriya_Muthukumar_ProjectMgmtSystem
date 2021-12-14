@@ -3,9 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ProjectMgmtSystem.Models;
 using ProjectMgmtSystem.Models.UserModel;
-using Microsoft.EntityFrameworkCore;
+using ProjectMgmtSystem.Repository;
 
 namespace ProjectMgmtSystem.Controllers
 {
@@ -13,9 +12,9 @@ namespace ProjectMgmtSystem.Controllers
     [ApiController]
     public class UserController : Controller
     {
-        private readonly IUserRepository _users;
+        private readonly IGenericRepository<User> _users;
 
-        public UserController(IUserRepository users)
+        public UserController(IGenericRepository<User> users)
         {
             _users = users;
         }
@@ -24,14 +23,14 @@ namespace ProjectMgmtSystem.Controllers
         [Route("api/[controller]")]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _users.GetAllUsersAsync());
+            return Ok(await _users.GetAllAsync());
         }
 
         [HttpGet]
         [Route("api/[controller]/{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var result = await _users.GetUserByIdAsync(id);
+            var result = await _users.GetByIdAsync(id);
             if(result == null)
             {
                 return NotFound();
@@ -45,7 +44,7 @@ namespace ProjectMgmtSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                return Ok(await _users.CreateUserAsync(user));
+                return Ok(await _users.CreateAsync(user));
             }
             else
             {
@@ -59,7 +58,7 @@ namespace ProjectMgmtSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                return Ok(await _users.UpdateUserAsync(id, inpUser));
+                return Ok(await _users.UpdateAsync(id, inpUser));
             }
             else
             {
@@ -71,12 +70,12 @@ namespace ProjectMgmtSystem.Controllers
         [Route("api/[controller]")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _users.GetUserByIdAsync(id);
+            var result = await _users.GetByIdAsync(id);
             if (result == null)
             {
                 return NotFound();
             }
-            result = await _users.DeleteUserAsync(id);
+            result = await _users.DeleteAsync(id);
             return Ok(result);
         }
     }
