@@ -11,7 +11,6 @@ using PMS.ApplicationDomainLayer;
 
 namespace PMS.DataAccessLayer
 {
-    // (Sprint II) -- 2. Create DbContext
     public class AppDBContext : DbContext
     {
         public DbSet<User> Users { get; set; }
@@ -27,7 +26,6 @@ namespace PMS.DataAccessLayer
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // (Sprint II) -- 3. invoke data seeding from dbcontext
             modelBuilder.Seed();
         }
     }

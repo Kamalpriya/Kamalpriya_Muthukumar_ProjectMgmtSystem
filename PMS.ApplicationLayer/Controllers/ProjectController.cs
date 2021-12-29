@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace PMS.ApplicationLayer.Controllers
 {
-    // (Sprint II) -- 4. Call Repository methods from api end point : for Project 
     [ApiController]
     public class ProjectController : Controller
     {
@@ -21,27 +20,26 @@ namespace PMS.ApplicationLayer.Controllers
 
         [HttpGet]
         [Route("api/[controller]")]
-        public async Task<IActionResult> Get()
+        public async Task<ActionResult<Project>> Get()
         {
-            // (Sprint II) -- 4. Call Repository methods from api end point : for Project 
             return Ok(await _projects.GetAllAsync());
         }
 
         [HttpGet]
         [Route("api/[controller]/{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<ActionResult<Project>> Get(int id)
         {
             var result = await _projects.GetByIdAsync(id);
             if (result == null)
             {
-                return NotFound();
+                return NotFound($"No project with id : {id}");
             }
             return Ok(result);
         }
 
         [HttpPost]
         [Route("api/[controller]")]
-        public async Task<IActionResult> Post(Project project)
+        public async Task<ActionResult<Project>> Post(Project project)
         {
             if (ModelState.IsValid)
             {
@@ -53,9 +51,9 @@ namespace PMS.ApplicationLayer.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("api/[controller]/{id}")]
-        public async Task<IActionResult> Post(int id, Project inpProject)
+        public async Task<ActionResult<Project>> Put(int id, Project inpProject)
         {
             if (ModelState.IsValid)
             {
@@ -68,13 +66,13 @@ namespace PMS.ApplicationLayer.Controllers
         }
 
         [HttpDelete]
-        [Route("api/[controller]")]
-        public async Task<IActionResult> Delete(int id)
+        [Route("api/[controller]/{id}")]
+        public async Task<ActionResult<Project>> Delete(int id)
         {
             var result = await _projects.GetByIdAsync(id);
             if (result == null)
             {
-                return NotFound();
+                return NotFound($"No project with id : {id}");
             }
             result = await _projects.DeleteAsync(id);
             return Ok(result);

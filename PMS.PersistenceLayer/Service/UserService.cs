@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace PMS.PersistenceLayer.Service
 {
-    // (Sprint II) -- 1. Implementation of generic repository for User
     public class UserService : IGenericRepository<User>
     {
         private readonly AppDBContext _context;

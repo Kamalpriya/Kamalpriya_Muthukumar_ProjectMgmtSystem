@@ -35,10 +35,7 @@ namespace PMS.ApplicationLayer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
-            // (Sprint II) -- 2. injecting DB context with in memory DB
-            var connectionString = Configuration.GetConnectionString("Default");
-            services.AddDbContext<AppDBContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<AppDBContext>(options => options.UseInMemoryDatabase("ProjectMgmtSystemDatabase"));
 
             services.AddScoped<IGenericRepository<User>, UserService>();
             services.AddScoped<IGenericRepository<Project>, ProjectService>();

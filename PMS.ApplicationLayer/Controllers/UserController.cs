@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace PMS.ApplicationLayer.Controllers
 {
-    // (Sprint II) -- 4. Call Repository methods from api end point : for User 
     [ApiController]
     public class UserController : Controller
     {
@@ -21,27 +20,26 @@ namespace PMS.ApplicationLayer.Controllers
 
         [HttpGet]
         [Route("api/[controller]")]
-        public async Task<IActionResult> Get()
+        public async Task<ActionResult<User>> Get()
         {
-            // (Sprint II) -- 4. Call Repository methods from api end point : for User 
             return Ok(await _users.GetAllAsync());
         }
 
         [HttpGet]
         [Route("api/[controller]/{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<ActionResult<User>> Get(int id)
         {
             var result = await _users.GetByIdAsync(id);
             if (result == null)
             {
-                return NotFound();
+                return NotFound($"No user with id : {id}");
             }
             return Ok(result);
         }
 
         [HttpPost]
         [Route("api/[controller]")]
-        public async Task<IActionResult> Post(User user)
+        public async Task<ActionResult<User>> Post(User user)
         {
             if (ModelState.IsValid)
             {
@@ -53,9 +51,9 @@ namespace PMS.ApplicationLayer.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("api/[controller]/{id}")]
-        public async Task<IActionResult> Post(int id, User inpUser)
+        public async Task<ActionResult<User>> Put(int id, User inpUser)
         {
             if (ModelState.IsValid)
             {
@@ -68,13 +66,13 @@ namespace PMS.ApplicationLayer.Controllers
         }
 
         [HttpDelete]
-        [Route("api/[controller]")]
-        public async Task<IActionResult> Delete(int id)
+        [Route("api/[controller]/{id}")]
+        public async Task<ActionResult<User>> Delete(int id)
         {
             var result = await _users.GetByIdAsync(id);
             if (result == null)
             {
-                return NotFound();
+                return NotFound($"No user with id : {id}");
             }
             result = await _users.DeleteAsync(id);
             return Ok(result);

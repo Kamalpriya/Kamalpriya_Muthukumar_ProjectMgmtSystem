@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace PMS.ApplicationLayer.Controllers
 {
-    // (Sprint II) -- 4. Call Repository methods from api end point : for Task 
     [ApiController]
     public class Task1Controller : Controller
     {
@@ -21,27 +20,26 @@ namespace PMS.ApplicationLayer.Controllers
 
         [HttpGet]
         [Route("api/[controller]")]
-        public async Task<IActionResult> Get()
+        public async Task<ActionResult<Task1>> Get()
         {
-            // (Sprint II) -- 4. Call Repository methods from api end point : for Task
             return Ok(await _tasks.GetAllAsync());
         }
 
         [HttpGet]
         [Route("api/[controller]/{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<ActionResult<Task1>> Get(int id)
         {
             var result = await _tasks.GetByIdAsync(id);
             if (result == null)
             {
-                return NotFound();
+                return NotFound($"No task with id : {id}");
             }
             return Ok(result);
         }
 
         [HttpPost]
         [Route("api/[controller]")]
-        public async Task<IActionResult> Post(Task1 task)
+        public async Task<ActionResult<Task1>> Post(Task1 task)
         {
             if (ModelState.IsValid)
             {
@@ -53,9 +51,9 @@ namespace PMS.ApplicationLayer.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("api/[controller]/{id}")]
-        public async Task<IActionResult> Post(int id, Task1 inpTask)
+        public async Task<ActionResult<Task1>> Put(int id, Task1 inpTask)
         {
             if (ModelState.IsValid)
             {
@@ -68,13 +66,13 @@ namespace PMS.ApplicationLayer.Controllers
         }
 
         [HttpDelete]
-        [Route("api/[controller]")]
-        public async Task<IActionResult> Delete(int id)
+        [Route("api/[controller]/{id}")]
+        public async Task<ActionResult<Task1>> Delete(int id)
         {
             var result = await _tasks.GetByIdAsync(id);
             if (result == null)
             {
-                return NotFound();
+                return NotFound($"No task with id : {id}");
             }
             result = await _tasks.DeleteAsync(id);
             return Ok(result);

@@ -11,7 +11,6 @@ using PMS.ApplicationDomainLayer;
 
 namespace PMS.DataAccessLayer
 {
-    // (Sprint II) -- 3. Seed data to DB for user, project, task
     public static class ModelSeed
     {
         public static void Seed(this ModelBuilder modelBuilder)

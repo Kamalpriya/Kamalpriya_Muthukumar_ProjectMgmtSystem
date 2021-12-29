@@ -20,7 +20,6 @@ namespace PMS.ApplicationLayer
     {
         public static void Main(string[] args)
         {
-            // (Sprint II) -- 4. Call Repository methods from api end point at client
             var apiCaller = new ServiceCollection();
             apiCaller.AddDbContext<AppDBContext>().AddScoped<IGenericRepository<User>, UserService>().
                 AddScoped<IGenericRepository<Project>, ProjectService>().

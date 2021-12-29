@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace PMS.PersistenceLayer.Repository
 {
-    // (Sprint II) -- 1. Create Repository Interface - Generic Repository created for User, Project, Task
     public interface IGenericRepository<T>
     {
         public Task<T> CreateAsync(T item);
