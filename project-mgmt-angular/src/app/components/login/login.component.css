@@ -1,0 +1,12 @@
+.div-content{
+    width: 600px;
+    margin-top: 100px;
+    margin-left: 300px;
+    background-color: azure;
+}
+
+.btn{
+    margin: auto;
+    display: block;
+}
+
