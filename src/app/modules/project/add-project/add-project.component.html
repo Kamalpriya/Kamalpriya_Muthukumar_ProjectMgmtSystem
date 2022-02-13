@@ -1,0 +1,33 @@
+<app-header></app-header>
+<div class="container-fluid">
+    <div class="class row">
+        <div class="class col-lg-1">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="class col-lg-11">
+            <!-- 2. Project Add form -->
+            <form>
+                <div class="section">
+                    <label class="new-label">New Project</label>
+                    <div class="buttons">
+                    <!-- 3. Bootstrap buttons -->
+                    <button class="btn btn-warning" routerLink="/projects">Cancel</button>
+                    <button type="submit" class="btn btn-primary" (click)="onSave()">Save</button>
+                    </div>
+                </div>
+                
+                <div class="details">
+                    <div class="form-group">
+                        <label for="Name">Project Name</label>
+                        <input type="text" class="form-control" id="ProjectName" placeholder="Enter project name">
+                    </div>
+                    <div class="form-group">
+                        <label for="Detail">Project Details</label>
+                        <input type="text" class="form-control" id="ProjectDetail" placeholder="Enter project detail">
+                    </div>  
+                    <label class="new-label">{{ savedNewProject? "New project saved successfully !!" : "" }}</label>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
