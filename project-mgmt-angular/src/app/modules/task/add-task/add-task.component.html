@@ -1,0 +1,44 @@
+<app-header></app-header>
+<div class="container-fluid">
+    <div class="class row">
+        <div class="class col-lg-1">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="class col-lg-11">
+            <!-- 2. Task Add form -->
+            <form>
+                <div class="section">
+                    <label class="new-label">New Task</label>
+                    <div class="buttons">
+                    <button class="btn btn-warning" routerLink="/tasks">Cancel</button>
+                    <button type="submit" class="btn btn-primary" (click)="onSave()">Save</button>
+                    </div>
+                </div>
+                
+                <div class="details">
+                    <div class="form-group">
+                        <label for="Name">Project</label>
+                        <div>
+                            <select class="drpdwn">
+                                <option *ngFor="let project of ProjectList" value="{{project.Id}}">{{project.Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Assigned">Assigned To User</label>
+                        <div>
+                            <select class="drpdwn">
+                                <option *ngFor="let user of UserList" value="{{user.Id}}">{{user.FirstName+" "+user.LastName}}</option>
+                            </select>
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label for="Detail">Task Details</label>
+                        <input type="text" class="form-control" id="TaskDetail" placeholder="Enter task detail">
+                    </div>  
+                    <label class="new-label">{{ savedNewTask? "New task saved successfully !!" : "" }}</label>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

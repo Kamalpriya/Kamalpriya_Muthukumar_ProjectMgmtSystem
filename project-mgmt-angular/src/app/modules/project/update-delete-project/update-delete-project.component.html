@@ -1,0 +1,32 @@
+<app-header></app-header>
+<div class="container-fluid">
+    <div class="class row">
+        <div class="class col-lg-1">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="class col-lg-11">
+            <!-- 2. Project update-delete form -->
+            <form>
+                <div class="section">
+                    <label class="new-label">Update / Delete Project</label>
+                    <div class="buttons">
+                    <button class="btn btn-warning" routerLink="/projects">Cancel</button>
+                    <button class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+                
+                <div class="details">
+                    <div class="form-group">
+                        <label for="Name">Name</label>
+                        <input type="text" class="form-control" id="Name" placeholder="Enter project name">
+                    </div>
+                    <div class="form-group">
+                        <label for="Detail">Detail</label>
+                        <input type="text" class="form-control" id="Detail" placeholder="Enter project detail">
+                    </div>
+                </div>
+            </form> 
+        </div>
+    </div>
+</div>
