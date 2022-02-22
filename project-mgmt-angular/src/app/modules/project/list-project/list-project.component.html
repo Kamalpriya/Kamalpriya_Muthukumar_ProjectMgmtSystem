@@ -20,11 +20,11 @@
                    </tr>
                </thead>
                <tbody>
-                   <tr  class="d-flex" *ngFor="let project of ProjectList" routerLink="/projects/update-delete">
-                       <td class="col-1">{{project.Id}}</td>
-                       <td class="col-3">{{project.Name}}</td>
-                       <td class="col-3">{{project.Detail}}</td>
-                       <td class="col-5">{{project.CreatedOn}}</td>
+                   <tr  class="d-flex" *ngFor="let project of projects" routerLink="/projects/update-delete/{{project.id}}">
+                       <td class="col-1">{{project.id}}</td>
+                       <td class="col-3">{{project.name}}</td>
+                       <td class="col-3">{{project.detail}}</td>
+                       <td class="col-5">{{project.createdOn}}</td>
                    </tr>
                </tbody>
             </table>

@@ -41,6 +41,14 @@ namespace PMS.ApplicationLayer
             services.AddScoped<IGenericRepository<Project>, ProjectService>();
             services.AddScoped<IGenericRepository<Task1>, Task1Service>();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProjectMgmtSystem", Version = "v1" });
@@ -60,6 +68,8 @@ namespace PMS.ApplicationLayer
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {

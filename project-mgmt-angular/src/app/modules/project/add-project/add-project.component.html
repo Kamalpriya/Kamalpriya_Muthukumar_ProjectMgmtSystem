@@ -6,7 +6,7 @@
         </div>
         <div class="class col-lg-11">
             <!-- 2. Project Add form -->
-            <form>
+            <form [formGroup]="addForm" >
                 <div class="section">
                     <label class="new-label">New Project</label>
                     <div class="buttons">
@@ -19,11 +19,11 @@
                 <div class="details">
                     <div class="form-group">
                         <label for="Name">Project Name</label>
-                        <input type="text" class="form-control" id="ProjectName" placeholder="Enter project name">
+                        <input type="text" class="form-control" formControlName="name" id="name" placeholder="Enter project name">
                     </div>
                     <div class="form-group">
                         <label for="Detail">Project Details</label>
-                        <input type="text" class="form-control" id="ProjectDetail" placeholder="Enter project detail">
+                        <input type="text" class="form-control" formControlName="detail" id="detail" placeholder="Enter project detail">
                     </div>  
                     <label class="new-label">{{ savedNewProject? "New project saved successfully !!" : "" }}</label>
                 </div>

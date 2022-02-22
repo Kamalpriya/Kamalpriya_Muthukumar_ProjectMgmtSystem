@@ -6,29 +6,34 @@
         </div>
         <div class="class col-lg-11">
             <!-- 2. User update-delete form -->
-            <form>
+            <form [formGroup]="updateDeleteForm" >
                 <div class="section">
                     <label class="new-label">Update / Delete User</label>
                     <div class="buttons">
                     <button class="btn btn-warning" routerLink="/users">Cancel</button>
-                    <button class="btn btn-danger">Delete</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-danger" (click)="onDelete()">Delete</button>
+                    <button type="submit" class="btn btn-primary" (click)="onSave()">Save</button>
                     </div>
                 </div>
                 
                 <div class="details">
                     <div class="form-group">
                         <label for="FirstName">First Name</label>
-                        <input type="text" class="form-control" id="FirstName" placeholder="Enter first name">
+                        <input type="text" class="form-control" formControlName="firstName" id="FirstName" placeholder="Enter first name">
                     </div>
                     <div class="form-group">
                         <label for="LastName">Last Name</label>
-                        <input type="text" class="form-control" id="LastName" placeholder="Enter last name">
+                        <input type="text" class="form-control" formControlName="lastName" id="LastName" placeholder="Enter last name">
                     </div>
                     <div class="form-group">
                         <label for="Email">Email</label>
-                        <input type="text" class="form-control" id="Email" placeholder="Enter email">
+                        <input type="text" class="form-control" formControlName="email" id="Email" placeholder="Enter email">
                     </div> 
+                    <div class="form-group">
+                        <label for="Password">Password</label>
+                        <input type="password" class="form-control" formControlName="password" id="Password" placeholder="Enter password">
+                    </div> 
+                    <label class="new-label">{{ savedUser? "User updated successfully !!" : "" }}</label>
                 </div>
             </form>
         </div>

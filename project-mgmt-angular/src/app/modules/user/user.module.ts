@@ -1,7 +1,7 @@
 //1. User Module
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { RouterModule } from "@angular/router";
 import { ListComponent } from './list-user/list-user.component';
@@ -12,7 +12,7 @@ import { UpdateDeleteUserComponent } from './update-delete-user/update-delete-us
 const ROUTES = [
   { path: '', component: ListComponent},
   { path: 'add', component: AddUserComponent},
-  { path: 'update-delete', component: UpdateDeleteUserComponent}
+  { path: 'update-delete/:id', component: UpdateDeleteUserComponent}
 ];
 
 @NgModule({
@@ -24,6 +24,7 @@ const ROUTES = [
   imports: [
     RouterModule.forChild(ROUTES),
     FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     SharedModule
   ]

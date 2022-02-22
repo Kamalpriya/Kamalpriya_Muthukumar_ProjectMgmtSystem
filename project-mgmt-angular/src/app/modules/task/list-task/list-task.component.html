@@ -22,13 +22,13 @@
                    </tr>
                </thead>
                <tbody>
-                   <tr  class="d-flex" *ngFor="let task of TaskList" routerLink="/tasks/update-delete">
-                       <th class="col-1">{{task.Id}}</th>
-                       <th class="col-2">{{task.Project}}</th>
-                       <th class="col-3">{{task.Details}}</th>
-                       <th class="col-2">{{task.AssignedToUser}}</th>
-                       <th class="col-2">{{task.Status}}</th>
-                       <th class="col-2">{{task.CreatedOn}}</th>
+                   <tr class="d-flex" *ngFor="let task of tasks" routerLink="/tasks/update-delete/{{task.id}}">
+                       <th class="col-1">{{task.id}}</th>
+                       <th class="col-2">{{task.projectId}}</th>
+                       <th class="col-3">{{task.detail}}</th>
+                       <th class="col-2">{{task.assignedToUserId}}</th>
+                       <th class="col-2">{{task.status}}</th>
+                       <th class="col-2">{{task.createdOn}}</th>
                    </tr>
                </tbody>
             </table>

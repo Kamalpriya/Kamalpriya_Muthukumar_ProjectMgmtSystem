@@ -1,31 +1,41 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { ProjectService } from '../../project/shared-project/services/project.service';
+import { UserService } from '../../user/shared-user/services/user.service';
+import { TaskService } from '../shared-task/services/task.service';
 
 @Component({
   selector: 'app-add-task',
   templateUrl: './add-task.component.html',
   styleUrls: ['./add-task.component.css']
 })
-export class AddTaskComponent implements OnInit {
-  ProjectList = [{Id: 1, Name: 'TestProject1', Detail: 'This is a test project', CreatedOn: '10/12/2021'},
-  {Id: 2, Name: 'TestProject2', Detail: 'This is a test project', CreatedOn: '10/12/2021'},
-  {Id: 3, Name: 'TestProject3', Detail: 'This is a test project', CreatedOn: '10/12/2021'},
-  {Id: 4, Name: 'TestProject4', Detail: 'This is a test project', CreatedOn: '10/12/2021'}]
 
-  UserList = [{Id: 1, FirstName: 'John', LastName: 'Doe', Email: 'john.doe@test.com'},
-  {Id: 2, FirstName: 'John', LastName: 'Skeet', Email: 'john.skeet@test.com'},
-  {Id: 3, FirstName: 'Mark', LastName: 'Seeman', Email: 'mark.seeman@test.com'},
-  {Id: 4, FirstName: 'Bob', LastName: 'Martin', Email: 'bob.martin@test.com'}]
+export class AddTaskComponent implements OnInit {
+  addForm = new FormGroup({
+    projectId: new FormControl(''),
+    assignedToUserId: new FormControl(''),
+    detail: new FormControl('')
+  });
+
+  public users : any[] = [];
+  public projects : any[] = [];
 
   savedNewTask : boolean = false;
 
-  onSave()
-  {
-    this.savedNewTask = !this.savedNewTask;
+  constructor(private _taskService: TaskService, private _projectService: ProjectService, private _userService: UserService) { 
+  }
+  
+  ngOnInit(): void {
+    this._projectService.getAllProjects().subscribe(data => this.projects = data)
+    this._userService.getAllUsers().subscribe(data => this.users = data)
   }
 
-  constructor() { }
-
-  ngOnInit(): void {
+  // Sprint 5 -- invoke create task api on save
+  onSave()
+  {
+    this.savedNewTask = false;
+    this._taskService.createTask(this.addForm.value).subscribe(data => {});
+    this.savedNewTask = true;
   }
 
 }

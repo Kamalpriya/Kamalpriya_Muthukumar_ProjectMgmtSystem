@@ -1,7 +1,7 @@
 //1. Project Module
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { RouterModule } from "@angular/router";
 import { ListProjectComponent } from './list-project/list-project.component';
@@ -12,7 +12,7 @@ import { UpdateDeleteProjectComponent } from './update-delete-project/update-del
 const ROUTES = [
   { path: '', component: ListProjectComponent},
   { path: 'add', component: AddProjectComponent},
-  { path: 'update-delete', component: UpdateDeleteProjectComponent},
+  { path: 'update-delete/:id', component: UpdateDeleteProjectComponent},
 ];
 
 @NgModule({
@@ -24,6 +24,7 @@ const ROUTES = [
   imports: [
     RouterModule.forChild(ROUTES),
     FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     SharedModule
   ]

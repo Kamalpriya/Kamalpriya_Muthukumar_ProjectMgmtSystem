@@ -20,11 +20,11 @@
                    </tr>
                </thead>
                <tbody>
-                   <tr  class="d-flex" *ngFor="let user of UserList" routerLink="/users/update-delete">
-                       <td class="col-1">{{user.Id}}</td>
-                       <td class="col-3">{{user.FirstName}}</td>
-                       <td class="col-3">{{user.LastName}}</td>
-                       <td class="col-5">{{user.Email}}</td>
+                   <tr  class="d-flex" *ngFor="let user of users" routerLink="/users/update-delete/{{user.id}}">
+                       <td class="col-1">{{user.id}}</td>
+                       <td class="col-3">{{user.firstName}}</td>
+                       <td class="col-3">{{user.lastName}}</td>
+                       <td class="col-5">{{user.email}}</td>
                    </tr>
                </tbody>
             </table>

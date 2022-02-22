@@ -6,7 +6,7 @@
         </div>
         <div class="class col-lg-11">
             <!-- 2. Task Add form -->
-            <form>
+            <form [formGroup]="addForm" >
                 <div class="section">
                     <label class="new-label">New Task</label>
                     <div class="buttons">
@@ -19,22 +19,23 @@
                     <div class="form-group">
                         <label for="Name">Project</label>
                         <div>
-                            <select class="drpdwn">
-                                <option *ngFor="let project of ProjectList" value="{{project.Id}}">{{project.Name}}</option>
+                            <select class="drpdwn" formControlName="projectId" id="projectId">
+                                <option class="form-control" *ngFor="let project of projects" value="{{project.id}}">{{project.name}}</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="Assigned">Assigned To User</label>
                         <div>
-                            <select class="drpdwn">
-                                <option *ngFor="let user of UserList" value="{{user.Id}}">{{user.FirstName+" "+user.LastName}}</option>
+                            <select class="drpdwn" formControlName="assignedToUserId" id="assignedToUserId">
+                                <option class="form-control" *ngFor="let user of users" value="{{user.id}}">{{user.firstName+" "+user.lastName}}</option>
                             </select>
                         </div>
                     </div> 
+
                     <div class="form-group">
                         <label for="Detail">Task Details</label>
-                        <input type="text" class="form-control" id="TaskDetail" placeholder="Enter task detail">
+                        <input type="text" class="form-control" formControlName="detail" id="detail" placeholder="Enter task detail">
                     </div>  
                     <label class="new-label">{{ savedNewTask? "New task saved successfully !!" : "" }}</label>
                 </div>

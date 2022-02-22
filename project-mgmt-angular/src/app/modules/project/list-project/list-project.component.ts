@@ -1,18 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { ProjectService } from '../shared-project/services/project.service';
 
 @Component({
   selector: 'app-list-project',
   templateUrl: './list-project.component.html',
   styleUrls: ['./list-project.component.css']
 })
-export class ListProjectComponent implements OnInit {
-  ProjectList = [{Id: 1, Name: 'TestProject1', Detail: 'This is a test project', CreatedOn: '10/12/2021'},
-  {Id: 2, Name: 'TestProject2', Detail: 'This is a test project', CreatedOn: '10/12/2021'},
-  {Id: 3, Name: 'TestProject3', Detail: 'This is a test project', CreatedOn: '10/12/2021'},
-  {Id: 4, Name: 'TestProject4', Detail: 'This is a test project', CreatedOn: '10/12/2021'}]
-  constructor() { }
 
+export class ListProjectComponent implements OnInit {
+  public projects : any[] = [];
+
+  // Sprint 5 -- inject project service
+  constructor(private _projectService: ProjectService) {
+  }
+
+  // Sprint 5 -- 3) Bind to project data on server
+  // invoke getall project api on init : subscribe to project data to retrieve and display projects list
   ngOnInit(): void {
+    this._projectService.getAllProjects().subscribe(data => this.projects = data)
   }
 
 }

@@ -1,7 +1,7 @@
 //1. Task Module
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { RouterModule } from "@angular/router";
 import { ListTaskComponent } from './list-task/list-task.component';
@@ -12,7 +12,7 @@ import { UpdateDeleteTaskComponent } from './update-delete-task/update-delete-ta
 const ROUTES = [
   { path: '', component: ListTaskComponent},
   { path: 'add', component: AddTaskComponent},
-  { path: 'update-delete', component: UpdateDeleteTaskComponent}
+  { path: 'update-delete/:id', component: UpdateDeleteTaskComponent}
 ];
 
 
@@ -26,6 +26,7 @@ const ROUTES = [
     RouterModule.forChild(ROUTES),
     FormsModule,
     CommonModule,
+    ReactiveFormsModule,
     SharedModule
   ]
 })
