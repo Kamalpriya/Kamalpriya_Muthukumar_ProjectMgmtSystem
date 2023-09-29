@@ -36,7 +36,6 @@ namespace PMS.ApplicationLayer
         {
             services.AddControllers();
             services.AddDbContext<AppDBContext>(options => options.UseInMemoryDatabase("ProjectMgmtSystemDatabase"));
-
             services.AddScoped<IGenericRepository<User>, UserService>();
             services.AddScoped<IGenericRepository<Project>, ProjectService>();
             services.AddScoped<IGenericRepository<Task1>, Task1Service>();
