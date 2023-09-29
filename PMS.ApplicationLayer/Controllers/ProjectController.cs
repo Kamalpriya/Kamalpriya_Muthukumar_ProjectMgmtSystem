@@ -12,7 +12,6 @@ namespace PMS.ApplicationLayer.Controllers
     public class ProjectController : Controller
     {
         private readonly IGenericRepository<Project> _projects;
-
         public ProjectController(IGenericRepository<Project> projects)
         {
             _projects = projects;
